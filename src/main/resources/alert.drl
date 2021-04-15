@@ -1,0 +1,21 @@
+package com.drools.sandpit.droolsrulesandpit;
+
+import java.util.List;
+import com.drools.sandpit.droolsrulesandpit.model.TradeData;
+import com.drools.sandpit.droolsrulesandpit.dao.TradeDataDAOImpl;
+
+
+
+dialect "java"
+
+rule "trade limit is 10"
+when
+$td : TradeData(tradeAmount>10);
+then
+$td.log($td.getId());
+end;
+
+
+
+
+
