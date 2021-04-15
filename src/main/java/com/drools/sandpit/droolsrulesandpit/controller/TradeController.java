@@ -1,10 +1,12 @@
 package com.drools.sandpit.droolsrulesandpit.controller;
 
+import com.drools.sandpit.droolsrulesandpit.dao.TradeDataDAO;
 import com.drools.sandpit.droolsrulesandpit.dao.TradeDataDAOImpl;
 import com.drools.sandpit.droolsrulesandpit.model.TradeData;
 import com.drools.sandpit.droolsrulesandpit.model.TradeValue;
 import com.drools.sandpit.droolsrulesandpit.service.TradeDataService;
 import com.drools.sandpit.droolsrulesandpit.utility.DataAlertHelper;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +17,19 @@ import java.util.List;
 @RequestMapping("/api")
 public class TradeController {
 
-    @Autowired
-    private KieSession session;
+//    @Autowired
+//    private KieSession session;
+
+    private final KieContainer kieContainer;
+    private final TradeDataDAO tradeDataDAO;
+    private final TradeDataService tradeDataService;
 
     @Autowired
-    TradeDataService tradeDataService;
-
-    @Autowired
-    TradeDataDAOImpl tradeDataDAO;
-
+    public TradeController(TradeDataService tradeDataService, TradeDataDAO tradeDataDAO, KieContainer kieContainer) {
+        this.kieContainer = kieContainer;
+        this.tradeDataService = tradeDataService;
+        this.tradeDataDAO = tradeDataDAO;
+    }
 
     @GetMapping("/trades")
     public List<TradeData> getDataFromDb() {
@@ -36,6 +42,7 @@ public class TradeController {
     public void trade() {
 
         List<TradeData> data = tradeDataService.getData();
+        KieSession session = kieContainer.newKieSession();
 
         for (TradeData d : data){
             session.insert(d);

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Component
 public class TradeData {
 
@@ -24,10 +24,14 @@ public class TradeData {
     private String message;
 
     @Autowired
-    TradeDataDAOImpl tradeDataDAO;
+    TradeDataDAO tradeDataDAO;
 
+    public TradeData(TradeDataDAO tradeDataDAO) {
+        this.tradeDataDAO = tradeDataDAO;
+    }
 
-
+    public TradeData() {
+    }
 
     public void log(int tradeId){
         System.out.println("Bad TradeId: "+tradeId);

@@ -18,7 +18,7 @@ public class TradeDataDAOImpl implements TradeDataDAO{
     @Override
     public List<TradeData> getData() {
         String sql = "SELECT * FROM drool_data";
-        return jdbcTemplate.query(sql, new TradeDataMapper());
+        return jdbcTemplate.query(sql, new TradeDataMapper(this));
 
     }
 

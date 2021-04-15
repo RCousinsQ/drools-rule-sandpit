@@ -4,8 +4,6 @@ import java.util.List;
 import com.drools.sandpit.droolsrulesandpit.model.TradeData;
 import com.drools.sandpit.droolsrulesandpit.dao.TradeDataDAOImpl;
 
-
-
 dialect "java"
 
 rule "trade limit is 10"
